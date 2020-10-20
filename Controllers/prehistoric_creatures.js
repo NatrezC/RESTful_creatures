@@ -3,7 +3,7 @@ const router = express.Router()
 const fs = require('fs')
 
 //------->prehistoric creatures index
-router.get('/prehistoric_creatures', (req, res)=>{
+router.get('/', (req, res)=>{
     // take the text from prehistoric_creatures.json and store it in a variable
     let preCreatures = fs.readFileSync('./prehistoric_creatures.json')
     let creatureData = JSON.parse(preCreatures) // convert the string to an array
@@ -17,5 +17,22 @@ router.get('/prehistoric_creatures', (req, res)=>{
     }
     res.render('prehistoric_creatures/index', {preCreatures: creatureData})
 })
+
+// ----> DINO NEW ROUTE <------
+router.get('/new', (req, res)=>{
+    res.render('prehistoric_creatures/new')
+})
+
+// ----> DINO SHOW ROUTE <------
+router.get('/:idx', (req, res)=>{
+    let creatures = fs.readFileSync('./prehistoric_creatures.json')
+    let creatureData = JSON.parse(creatures)
+    // get array index from url parameter
+    let creatureIndex = req.params.idx
+    console.log(creatureData[creatureIndex])
+    res.render('prehistoric_creatures/show', {creature: creatureData[creatureIndex], creatureId: creatureIndex})
+})
+
+
 
 module.exports =  router;

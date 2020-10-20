@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router()
 const fs = require('fs')
+
 // ----> DINO INDEX ROUTE <------
 router.get('/', (req, res)=>{
     // take the text from dinosaurs.json and store it in a variable
