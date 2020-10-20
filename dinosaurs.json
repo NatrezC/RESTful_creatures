@@ -4,7 +4,5 @@
     {"name":"Ducky","type":"saurolophus"},
     {"name":"Petrie","type":"pteranodon"},
     {"name":"Spike","type":"stegosaurus"},
-    {"type":"dogge","name":"spot"},
-    {"type":"bob","name":"bill"},
-    {"type":"bob","name":"bill"}
+    {"type":"dogge","name":"spot"}
 ]

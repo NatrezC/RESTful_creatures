@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router()
-
+const fs = require('fs')
 // ----> DINO INDEX ROUTE <------
 router.get('/', (req, res)=>{
     // take the text from dinosaurs.json and store it in a variable
@@ -19,12 +19,12 @@ router.get('/', (req, res)=>{
 })
 
 // ----> DINO NEW ROUTE <------
-app.get('/new', (req, res)=>{
+router.get('/new', (req, res)=>{
     res.render('dinosaurs/new')
 })
 
 // ----> DINO SHOW ROUTE <------
-app.get('/:idx', (req, res)=>{
+router.get('/:idx', (req, res)=>{
     let dinosaurs = fs.readFileSync('./dinosaurs.json')
     let dinoData = JSON.parse(dinosaurs)
     // get array index from url parameter
@@ -34,7 +34,7 @@ app.get('/:idx', (req, res)=>{
 })
 
 // ----> DINO POST ROUTE <------
-app.post('/', (req, res)=>{
+router.post('/', (req, res)=>{
     let dinosaurs = fs.readFileSync('./dinosaurs.json')
     let dinoData = JSON.parse(dinosaurs)
     dinoData.push(req.body) // push the new dino to the array
