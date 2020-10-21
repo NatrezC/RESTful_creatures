@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router()
 const fs = require('fs')
+const methodOverride = require('method-override')
 
 // ----> DINO INDEX ROUTE <------
 router.get('/', (req, res)=>{
@@ -43,8 +44,40 @@ router.post('/', (req, res)=>{
     // JSON.stringify does the opposite of JSON.parse
     fs.writeFileSync('./dinosaurs.json', JSON.stringify(dinoData))
     // redirect to the GET /dinosaurs route (index)
-    res.redirect('/')
+    res.redirect('./dinosaurs')
 })
 
+//------->get Edit route
+router.get('/edit/:idx', (req, res)=>{
+    //res.send(`you hit the GET edit route for dino# ${req.params.idx}`)
+    let dinosaurs = fs.readFileSync('./dinosaurs.json')
+    let dinoData = JSON.parse(dinosaurs)
+    res.render('./dinosaurs/edit', {dino: dinoData[req.params.idx], dinoId: req.params.idx}) // . refers to the file tree. / refers to the url path
+})
+
+router.put('/:idx', (req, res)=>{
+    let dinosaurs = fs.readFileSync('./dinosaurs.json')
+    let dinoData = JSON.parse(dinosaurs)
+    //reassign the dino's fields to be tha which the user input
+    dinoData[req.params.idx].name = req.body.name
+    dinoData[req.params.idx].type = req.body.type
+    // save the edited array to the json file
+    fs.writeFileSync('./dinosaurs.json', JSON.stringify(dinoData))
+    res.redirect('/dinosaurs')
+})
+
+//--------> delete Route
+router.delete('/:idx', (req, res)=>{
+    let dinosaurs = fs.readFileSync('./dinosaurs.json')
+    let dinoData = JSON.parse(dinosaurs)
+
+    //remove the deleted dinosaur from the dinosaurs array
+    dinoData.splice(req.params.idx, 1)
+
+    //save the new dinosaurs to the json file
+    fs.writeFileSync('./dinosaurs.json', JSON.stringify(dinoData))
+
+    res.redirect('/dinosaurs')
+})
 
 module.exports =  router;

@@ -1,0 +1,9 @@
+<h1>You are edditing the Dino with the id of: <%= dinoId %></h1>
+<form method="POST" action="/dinosaurs/<%=dinoId%>/?_method=PUT">
+    <label for="dinosaurType">Type</label>
+    <input type="text" name="type" id="dinosaurType" value="<%= dino.type %>">
+
+    <label for="">Name</label>
+    <input type="text" name="name" value="<%=dino.name%>">
+    <input type="submit">
+</form>

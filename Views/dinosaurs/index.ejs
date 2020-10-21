@@ -6,9 +6,12 @@
     <input type="submit">
 </form>
 <ul>
-    <% dinosaurs.forEach(d=>{ %>
+    <% dinosaurs.forEach((d,i)=>{ %>
         <li>
             <%= d.name %> is a <%= d.type %>
+            <form method="POST" action="/dinosaurs/<%= i %>/?_method=DELETE">
+                <input type="submit" value="Delete">
+            </form>
         </li>
     <% }) %> 
 </ul>
